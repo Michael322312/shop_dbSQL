@@ -19,6 +19,7 @@ db.execute('''CREATE TABLE  IF NOT EXISTS orders ( order_id INTEGER PRIMARY KEY 
            FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
            FOREIGN KEY (product_id) REFERENCES products(product_id));''')
 
+
 while True:
 
     print('''
@@ -40,6 +41,8 @@ while True:
 
     command = input("Оберіть ваші дії: ")
     match command:
+        case "0":
+            break
         case '1':
             name = input("Name:")
             category = input("Category:")
@@ -56,9 +59,22 @@ while True:
             quantity = int(input('Quantity:'))
 
             crud.add_order(db, customer_id, product_id, quantity)
-            
         case '4':
-            name = input("Name:")
-            category = input("Category:")
-            price = int(input('Price:'))
-            crud.add_product(db, name, category, price)
+            print(crud.total_money(db))
+        case "5":
+            print(crud.get_customers_order_count(db))
+        case "6":
+            print(crud.avg_money(db))
+        case "7":
+            print(crud.pop_category(db))
+        case "8":
+            print(crud.total_products_in_category(db))
+        case "9":
+            category = input("Enter category:")
+            crud.update_prices_10(db, category)
+        case "10":
+            print(crud.all_customers(db))
+        case "11":
+            print(crud.all_products(db))
+        case "12":
+            print(crud.all_orders(db))
